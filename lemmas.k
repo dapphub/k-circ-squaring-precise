@@ -41,8 +41,8 @@ rule 0 ^Int N => 0
 rule Z *Int (X ^Int (N /Int 2)) <Int pow256 ==K true
   requires Z *Int (X ^Int ( N )) <Int pow256 ==K true
 
-// rule (X *Int X) <Int pow256 => true
-//   requires X ^Int (2 *Int N) <Int pow256
+rule (X *Int X) <Int pow256 => true
+  requires X ^Int (2 *Int N) <Int pow256
 
 rule 0 <=Int X *Int X => true
   requires 1 <=Int X
@@ -50,8 +50,16 @@ rule 0 <=Int X *Int X => true
 rule 1 <=Int X *Int X => true
   requires 1 <=Int X
 
-// rule chop(X *Int X) => X *Int X
-//   requires X ^Int (2 *Int N) <Int pow256
+rule chop(X *Int X) => X *Int X
+  requires X ^Int (2 +Int N) <Int pow256
+  andBool 0 <=Int N
+
+rule chop(X *Int X) => X *Int X
+  requires X ^Int (2 +Int N) <Int pow256
+
+rule X *Int X <Int pow256 => true
+  requires X ^Int (2 +Int N) <Int pow256
+  andBool 0 <=Int N
 
 rule 0 <=Int N /Int 2 => true
   requires 0 <=Int N

@@ -4,7 +4,7 @@
   "bin_runtime": "./exp.bin-runtime",
   "source": "./exp.sol",
   "sourcemap": "./exp.srcmap",
-  "host": "159.89.12.113:8080",
+  "host": "localhost:8080",
   "omit": [
     "generatedTop.ethereum.evm.callState.program",
     "generatedTop.ethereum.evm.callState.programBytes",
