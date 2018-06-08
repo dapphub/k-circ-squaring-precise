@@ -28,9 +28,9 @@ rule Z *Int (X ^Int N) => Z
 rule Z *Int (X ^Int (N %Int 2)) => Z
   requires N ==Int 0
 
-rule log2Int(N /Int 2) => log2Int(N) -Int 1
-
-rule (100000000 *Int (log2Int(N))) +Int 1000000000 >Int 0 => true
+// rule log2Int(N /Int 2) => log2Int(N) -Int 1
+//
+// rule (100000000 *Int (log2Int(N))) +Int 1000000000 >Int 0 => true
 
 rule 0 ^Int N => 1
   requires N ==Int 0
@@ -41,6 +41,30 @@ rule 0 ^Int N => 0
 rule Z *Int (X ^Int (N /Int 2)) <Int pow256 ==K true
   requires Z *Int (X ^Int ( N )) <Int pow256 ==K true
 
+// new
+
+rule 0 <=Int (N /Int 2) => true
+  requires 0 <=Int N
+
+rule N /Int 2 <Int pow256 => true
+  requires N <Int pow256
+
+rule Z *Int (X *Int X) ^Int (N /Int 2) => Z *Int X ^Int N
+  requires N modInt 2 ==Int 0
+
+rule Z *Int X *Int (X *Int X) ^Int (N /Int 2) => Z *Int X ^Int N
+  requires N modInt 2 ==Int 1
+
+// rule Z *Int ((X *Int X) ^Int (N /Int 2)) <Int pow256 => true
+//   requires Z *Int (X ^Int N) <Int pow256
+//   andBool N >=Int 2    // N%2 == 0 and N != 0 => N >= 2
+
+// rule 0 <= Z *Int (X *Int X) ^ (N /Int 2)
+//   requires 0
+//
+
+
+/*
 rule (X *Int X) <Int pow256 => true
   requires X ^Int (2 *Int N) <Int pow256
 
@@ -50,7 +74,11 @@ rule 0 <=Int X *Int X => true
 rule 1 <=Int X *Int X => true
   requires 1 <=Int X
 
-rule chop(X *Int X) => X *Int X
+rule X *Int X <Int pow256
+  requires X ^Int 2 <Int pow256
+*/
+
+/*rule chop(X *Int X) => X *Int X
   requires X ^Int (2 +Int N) <Int pow256
   andBool 0 <=Int N
 
@@ -66,3 +94,6 @@ rule 0 <=Int N /Int 2 => true
 
 rule N /Int 2 <Int pow256 => true
   requires N <Int pow256
+
+*/
+
